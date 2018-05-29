@@ -107,4 +107,7 @@ FACEBOOK_SCROLL_PAUSE_TIME = 2
 
 # MONGODB CONNECTION
 MONGO_URI = "mongodb://localhost:27017"
-MONGO_DATABASE = ""
+MONGO_DATABASE = "ConcertScraper"
+
+# CHROME DRIVER PATH
+CHROME_DRIVER_PATH = "/Users/snn2spade/Downloads/chromedriver"

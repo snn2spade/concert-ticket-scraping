@@ -23,13 +23,14 @@ class FacebookDownloaderMiddleware(object):
         FACEBOOK_USER = spider.settings["FACEBOOK_USER"]
         FACEBOOK_PASS = spider.settings["FACEBOOK_PASS"]
         SCROLL_PAUSE_TIME = spider.settings["FACEBOOK_SCROLL_PAUSE_TIME"]
+        CHROME_DRVER_PATH = spider.settings["CHROME_DRIVER_PATH"]
         if not request.meta.get("facebook"):
             raise IgnoreRequest("Not facebook request")
         chrome_options = Options()
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-notifications")
         chrome_options.add_argument('headless')
-        self.browser = webdriver.Chrome(executable_path="/Users/snn2spade/Downloads/chromedriver",
+        self.browser = webdriver.Chrome(executable_path=CHROME_DRVER_PATH,
                                         chrome_options=chrome_options)
         self.browser.implicitly_wait(10)  # seconds
         self.browser.maximize_window()
