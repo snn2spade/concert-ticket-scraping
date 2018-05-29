@@ -63,9 +63,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'ConcertScraper.pipelines.WebscaperPipeline': 300,
-# }
+ITEM_PIPELINES = {
+    'ConcertScraper.pipelines.MongoDBPipeline': 300
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -89,16 +89,22 @@ ROBOTSTXT_OBEY = False
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 FEED_EXPORT_ENCODING = 'utf-8'
+LOG_LEVEL = 'INFO'
 
+# SEARCH KEYWORDS
 MAIN_SEARCH_KEYWORD = ''
 OTHER_SEARCH_KEYWORDS = []
 
+# FACEBOOK GROUP FOR SCRAPING
 FACEBOOK_GROUP_SEARCH_URL = ["https://www.facebook.com/groups/findsandsellsticketsthailand/search/?query={}",
                              "https://www.facebook.com/groups/1793913310843227/search/?query={}",
                              "https://www.facebook.com/groups/tickettohand/search/?query={}"]
 
-FACEBOOK_USER = ''
-FACEBOOK_PASS = ''
+# FACEBOOK AUTHENTICATION
+FACEBOOK_USER = ""
+FACEBOOK_PASS = ""
 FACEBOOK_SCROLL_PAUSE_TIME = 2
 
-LOG_LEVEL = 'INFO'
+# MONGODB CONNECTION
+MONGO_URI = "mongodb://localhost:27017"
+MONGO_DATABASE = ""
