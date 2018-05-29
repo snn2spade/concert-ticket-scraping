@@ -32,8 +32,8 @@ class MongoDBPipeline(object):
     def process_item(self, item, spider):
         item_in_db = self.db[self.collection_name].find_one({"source": item["source"], "id": item["id"]})
         if item_in_db is None:
-            log.info("Not found cache item, insert one = {}".format(item))
+            log.info("Not found cache item, insert one src = {}, id = {}".format(item["source"],item["id"]))
             self.db[self.collection_name].insert_one(dict(item))
         else:
-            log.info("Found cache item, drop item = {}".format(item))
+            log.info("Found cache item, drop item src = {}, id = {}".format(item["source"],item["id"]))
         return item
