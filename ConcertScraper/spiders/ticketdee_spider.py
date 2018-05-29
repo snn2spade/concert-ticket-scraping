@@ -34,7 +34,7 @@ class TicketDeeSpider(scrapy.Spider):
                 yield request
 
         if res[0]['hasMorePages']:
-            log.info("Next page request url = {}, page = ".format(self.url,str(currentPage + 1)))
+            log.info("Next page request url = {}, page = {}".format(self.url,str(currentPage + 1)))
             yield scrapy.FormRequest(url=self.url,
                                      formdata={'page': str(currentPage + 1), 'show_sold_out': 'false', 'sortby': '2'},
                                      callback=self.parse)
