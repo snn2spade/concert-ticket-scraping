@@ -37,6 +37,7 @@ class KaideeSpider(scrapy.Spider):
                 yield request
         next_page = response.xpath("//a[@class='nextPage']").xpath("@href").extract_first()
         if next_page is not None:
+            log.info("Next page request url = {}".format(next_page))
             yield response.follow(next_page, callback=self.parse)
 
     def parse_detail(self, response):

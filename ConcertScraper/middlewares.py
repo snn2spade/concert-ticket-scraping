@@ -56,6 +56,7 @@ class FacebookDownloaderMiddleware(object):
 
             # Calculate new scroll height and compare with last scroll height
             max_height = self.browser.execute_script("return document.body.scrollHeight")
+            log.info("Scroll to {}, max height = {} ".format(next_height,max_height))
             if next_height >= max_height:
                 break
             next_height += 500
