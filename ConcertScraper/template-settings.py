@@ -115,6 +115,6 @@ SELENIUM_USING_REMOTE = True
 SELENIUM_REMOTE_URL = "http://172.20.128.2:4444/wd/hub"
 
 # item pipeline for keep result in MongoDB
-ITEM_PIPELINES = {
-    'ConcertScraper.pipelines.MongoDBPipeline': 300
-}
+# ITEM_PIPELINES = {
+#     'ConcertScraper.pipelines.MongoDBPipeline': 300
+# }
