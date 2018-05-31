@@ -20,6 +20,10 @@ Docker version 18.0 or above
 git clone https://github.com/snn2spade/concert-ticket-scraping.git
 ```
 
+### Create Settings.py file
+
+Go to root folder and copy template-settings.py to settings.py
+
 ### Setup Scrapyd and Selenium Server using Docker Composer
 
 Change directory to folder which containa docker-composer.yml
@@ -55,7 +59,8 @@ Now go to http://localhost:6800 you must see Scrapyd server is running with Conc
 scrapy-client schedule kaidee -p ConcertScraper
 ```
 
-This will scraping ticket sold on Kaidee with specifc keyword 'Celine' (You can change it later)
+This will scraping ticket sold on Kaidee with specifc keyword 'Celine' (You can change it in settings.py)
+
 Now go to http://localhost:6800 and go to log section you will see job is running.
 
 
