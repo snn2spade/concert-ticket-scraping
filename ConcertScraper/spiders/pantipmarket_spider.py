@@ -18,7 +18,7 @@ class PantipMarketSpider(scrapy.Spider):
     def start_requests(self):
         if self.settings["ENABLE_NOTI_SLACK"]:
             response = SlackNotification.sendMsg(self.settings["SLACK_WEBHOOK_URL"], "Start PantipMarket spider.")
-            if response != 200:
+            if response.status_code != 200:
                 log.error("Cannot send notfication slack when open spider")
         url = self.start_url.format(self.settings["MAIN_SEARCH_KEYWORD"])
         log.info("Send request for PantipMarket URL = {}".format(self.start_url))

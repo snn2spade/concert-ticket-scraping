@@ -18,7 +18,7 @@ class FacebookSpider(scrapy.Spider):
     def start_requests(self):
         if self.settings["ENABLE_NOTI_SLACK"]:
             response = SlackNotification.sendMsg(self.settings["SLACK_WEBHOOK_URL"], "Start facebook spider.")
-            if response != 200:
+            if response.status_code != 200:
                 log.error("Cannot send notfication slack when open spider")
         start_urls = self.settings["FACEBOOK_GROUP_SEARCH_URL"]
         keyword = self.settings["MAIN_SEARCH_KEYWORD"]

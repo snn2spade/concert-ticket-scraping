@@ -21,7 +21,7 @@ class KaideeSpider(scrapy.Spider):
     def start_requests(self):
         if self.settings["ENABLE_NOTI_SLACK"]:
             response = SlackNotification.sendMsg(self.settings["SLACK_WEBHOOK_URL"], "Start Kaidee spider.")
-            if response != 200:
+            if response.status_code != 200:
                 log.error("Cannot send notfication slack when open spider")
         self.keywords = self.settings["OTHER_SEARCH_KEYWORDS"]
         self.keywords.append(self.settings["MAIN_SEARCH_KEYWORD"])

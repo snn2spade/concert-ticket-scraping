@@ -6,6 +6,7 @@ FROM vimagick/scrapyd:py3
 MAINTAINER Napat Paopongpaibul <napat.paopongpaibul@gmail.com>
 
 RUN pip install selenium
+RUN pip install pymongo
 
 #WORKDIR /var/lib/scrapyd
 
