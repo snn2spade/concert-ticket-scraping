@@ -1,6 +1,7 @@
 import scrapy
 import logging
 import sys
+from ConcertScraper.service.SlackNotification import SlackNotification
 
 # fix ascii encode error on python2.7
 if sys.version_info < (3, 0):
@@ -15,6 +16,10 @@ class FacebookSpider(scrapy.Spider):
     custom_settings = {"DOWNLOADER_MIDDLEWARES": {'ConcertScraper.middlewares.FacebookDownloaderMiddleware': 543}}
 
     def start_requests(self):
+        if self.settings["ENABLE_NOTI_SLACK"]:
+            response = SlackNotification.sendMsg(self.settings["SLACK_WEBHOOK_URL"], "Start facebook spider.")
+            if response != 200:
+                log.error("Cannot send notfication slack when open spider")
         start_urls = self.settings["FACEBOOK_GROUP_SEARCH_URL"]
         keyword = self.settings["MAIN_SEARCH_KEYWORD"]
         for url in start_urls:

@@ -2,6 +2,7 @@ import scrapy
 from ConcertScraper.service.TextUtility import TextUtility
 import logging
 import sys
+from ConcertScraper.service.SlackNotification import SlackNotification
 
 # fix ascii encode error on python2.7
 if sys.version_info < (3, 0):
@@ -17,6 +18,10 @@ class TicketDeeSpider(scrapy.Spider):
     url2 = 'https://www.ticketdee.com/apif/concert/{}/edit'
 
     def start_requests(self):
+        if self.settings["ENABLE_NOTI_SLACK"]:
+            response = SlackNotification.sendMsg(self.settings["SLACK_WEBHOOK_URL"], "Start TicketDee spider.")
+            if response != 200:
+                log.error("Cannot send notfication slack when open spider")
         self.keywords = self.settings["OTHER_SEARCH_KEYWORDS"]
         self.keywords.append(self.settings["MAIN_SEARCH_KEYWORD"])
         log.debug("SEARCH KEYWORDS = {}".format(self.keywords))

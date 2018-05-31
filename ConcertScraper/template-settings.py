@@ -114,7 +114,11 @@ CHROME_DRIVER_PATH = "/var/lib/scrapyd/chromedriver"
 SELENIUM_USING_REMOTE = True
 SELENIUM_REMOTE_URL = "http://172.20.128.2:4444/wd/hub"
 
-# item pipeline for keep result in MongoDB
-# ITEM_PIPELINES = {
-#     'ConcertScraper.pipelines.MongoDBPipeline': 300
-# }
+# item pipeline for keep result in MongoDB (If disabled this it also disable SLACK Notification)
+ITEM_PIPELINES = {
+    'ConcertScraper.pipelines.MongoDBPipeline': 300
+}
+
+# SLACK NOTIFICATION
+ENABLE_NOTI_SLACK = True
+SLACK_WEBHOOK_URL = ""
