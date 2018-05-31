@@ -1,0 +1,29 @@
+version: "3"
+services:
+
+  scrapyd:
+    image: snn2spade/myscrapyd-selenium
+    ports:
+      - "6800:6800"
+    volumes:
+      - ./data:/var/lib/scrapyd
+      - /usr/local/lib/python3.5/dist-packages
+    restart: always
+
+  selenium:
+    image: selenium/standalone-chrome:3.12.0-boron
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm
+    restart: always
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.2
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+

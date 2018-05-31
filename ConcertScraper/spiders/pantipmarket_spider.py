@@ -1,7 +1,13 @@
 import scrapy
 import logging
+import sys
 
-log = logging.getLogger( __name__)
+# fix ascii encode error on python2.7
+if sys.version_info < (3, 0):
+    reload(sys)
+    sys.setdefaultencoding('utf8')
+
+log = logging.getLogger(__name__)
 
 
 class PantipMarketSpider(scrapy.Spider):

@@ -13,6 +13,9 @@ from selenium.webdriver.chrome.options import Options
 from scrapy.exceptions import IgnoreRequest
 import time
 import logging
+import os.path
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 log = logging.getLogger(__name__)
 
@@ -24,14 +27,24 @@ class FacebookDownloaderMiddleware(object):
         FACEBOOK_PASS = spider.settings["FACEBOOK_PASS"]
         SCROLL_PAUSE_TIME = spider.settings["FACEBOOK_SCROLL_PAUSE_TIME"]
         CHROME_DRVER_PATH = spider.settings["CHROME_DRIVER_PATH"]
+        SELENIUM_REMOTE_URL = spider.settings["SELENIUM_REMOTE_URL"]
+        SELENIUM_USING_REMOTE = spider.settings["SELENIUM_USING_REMOTE"]
         if not request.meta.get("facebook"):
             raise IgnoreRequest("Not facebook request")
         chrome_options = Options()
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-notifications")
         chrome_options.add_argument('headless')
-        self.browser = webdriver.Chrome(executable_path=CHROME_DRVER_PATH,
-                                        chrome_options=chrome_options)
+        if SELENIUM_USING_REMOTE:
+            self.browser = webdriver.Remote(command_executor=SELENIUM_REMOTE_URL,
+                                            desired_capabilities=chrome_options.to_capabilities())
+        else:
+            if os.path.isfile(CHROME_DRVER_PATH):
+                log.info("Found chrome driver file")
+            else:
+                log.error("Cannot access chrome driver file")
+            self.browser = webdriver.Chrome(executable_path=CHROME_DRVER_PATH,
+                                            chrome_options=chrome_options)
         self.browser.implicitly_wait(10)  # seconds
         self.browser.maximize_window()
         self.browser.get('https://www.facebook.com')
@@ -56,7 +69,7 @@ class FacebookDownloaderMiddleware(object):
 
             # Calculate new scroll height and compare with last scroll height
             max_height = self.browser.execute_script("return document.body.scrollHeight")
-            log.info("Scroll to {}, max height = {} ".format(next_height,max_height))
+            log.info("Scroll to {}, max height = {} ".format(next_height, max_height))
             if next_height >= max_height:
                 break
             next_height += 500

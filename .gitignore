@@ -8,5 +8,8 @@ build/
 project.egg-info/
 dbs/
 *.csv
+docker/data/
+*.log
+*.pyc
 
 

@@ -63,9 +63,7 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'ConcertScraper.pipelines.MongoDBPipeline': 300
-}
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -92,8 +90,8 @@ FEED_EXPORT_ENCODING = 'utf-8'
 LOG_LEVEL = 'INFO'
 
 # SEARCH KEYWORDS
-MAIN_SEARCH_KEYWORD = ''
-OTHER_SEARCH_KEYWORDS = []
+MAIN_SEARCH_KEYWORD = 'celine'
+OTHER_SEARCH_KEYWORDS = ['dion', 'เซลีน', 'ดิออน', 'celion']
 
 # FACEBOOK GROUP FOR SCRAPING
 FACEBOOK_GROUP_SEARCH_URL = ["https://www.facebook.com/groups/findsandsellsticketsthailand/search/?query={}",
@@ -109,5 +107,14 @@ FACEBOOK_SCROLL_PAUSE_TIME = 2
 MONGO_URI = "mongodb://localhost:27017"
 MONGO_DATABASE = "ConcertScraper"
 
-# CHROME DRIVER PATH
-CHROME_DRIVER_PATH = "/Users/snn2spade/Downloads/chromedriver"
+# CHROME DRIVER PATH (if using selenium remote can let this field empty string)
+CHROME_DRIVER_PATH = "/var/lib/scrapyd/chromedriver"
+
+# SELENIUM SETTING
+SELENIUM_USING_REMOTE = True
+SELENIUM_REMOTE_URL = "http://172.20.128.2:4444/wd/hub"
+
+# item pipeline for keep result in MongoDB
+ITEM_PIPELINES = {
+    'ConcertScraper.pipelines.MongoDBPipeline': 300
+}
