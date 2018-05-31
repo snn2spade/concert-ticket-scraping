@@ -63,6 +63,11 @@ This will scraping ticket sold on Kaidee with specifc keyword 'Celine' (You can 
 
 Now go to http://localhost:6800 and go to log section you will see job is running.
 
+## For the future
+
+In nearest future I wil update not only for Concert ticket but everything! in e-commerce platform
+But actually it not hard to modify, Let do this by yourself!
+
 
 ## License
 
