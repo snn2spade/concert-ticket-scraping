@@ -2,7 +2,7 @@ import scrapy
 from ConcertScraper.service.TextUtility import TextUtility
 import logging
 import sys
-from ConcertScraper.service.SlackNotification import SlackNotification
+from ConcertScraper.service.Notification import Notification
 
 # fix ascii encode error on python2.7
 if sys.version_info < (3, 0):
@@ -18,10 +18,15 @@ class TicketDeeSpider(scrapy.Spider):
     url2 = 'https://www.ticketdee.com/apif/concert/{}/edit'
 
     def start_requests(self):
-        if self.settings["ENABLE_NOTI_SLACK"]:
-            response = SlackNotification.sendMsg(self.settings["SLACK_WEBHOOK_URL"], "Start TicketDee spider.")
-            if response.status_code != 200:
-                log.error("Cannot send notfication slack when open spider")
+        if self.settings["ENABLE_NOTI_SLACK"] and self.settings["ENABLE_SPIDER_START_NOTI"]:
+            slack_response = Notification.sendLineMsg(self.settings["SLACK_WEBHOOK_URL"], "Start TicketDee spider.")
+            if slack_response.status_code != 200:
+                log.error("Cannot send notification slack when open spider")
+        if self.settings["ENABLE_LINE_NOTI"] and self.settings["ENABLE_SPIDER_START_NOTI"]:
+            line_response = Notification.sendLineMsg(self.settings["CHANEL_ACCESS_TOKEN"], self.settings["LINE_USER_ID_LIST"]
+                                                     , "Start TicketDee spider.")
+            if line_response.status_code != 200:
+                log.error("Cannot send notification line when open spider")
         self.keywords = self.settings["OTHER_SEARCH_KEYWORDS"]
         self.keywords.append(self.settings["MAIN_SEARCH_KEYWORD"])
         log.debug("SEARCH KEYWORDS = {}".format(self.keywords))

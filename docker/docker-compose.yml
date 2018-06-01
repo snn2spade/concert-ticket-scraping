@@ -17,13 +17,15 @@ services:
     volumes:
       - /dev/shm:/dev/shm
     restart: always
-    networks:
-      static-network:
-        ipv4_address: 172.20.128.2
 
-networks:
-  static-network:
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+  mongo:
+    image: mongo:3.6-jessie
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME:
+      MONGO_INITDB_ROOT_PASSWORD:
+
+
 

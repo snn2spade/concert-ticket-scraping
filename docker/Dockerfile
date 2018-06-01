@@ -7,6 +7,7 @@ MAINTAINER Napat Paopongpaibul <napat.paopongpaibul@gmail.com>
 
 RUN pip install selenium
 RUN pip install pymongo
+RUN pip install pytz
 
 #WORKDIR /var/lib/scrapyd
 

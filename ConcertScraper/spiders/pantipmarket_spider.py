@@ -1,7 +1,7 @@
 import scrapy
 import logging
 import sys
-from ConcertScraper.service.SlackNotification import SlackNotification
+from ConcertScraper.service.Notification import Notification
 
 # fix ascii encode error on python2.7
 if sys.version_info < (3, 0):
@@ -16,10 +16,15 @@ class PantipMarketSpider(scrapy.Spider):
     start_url = 'https://www.pantipmarket.com/search/?keyword={}&group=11&show_adv=0'
 
     def start_requests(self):
-        if self.settings["ENABLE_NOTI_SLACK"]:
-            response = SlackNotification.sendMsg(self.settings["SLACK_WEBHOOK_URL"], "Start PantipMarket spider.")
-            if response.status_code != 200:
-                log.error("Cannot send notfication slack when open spider")
+        if self.settings["ENABLE_NOTI_SLACK"] and self.settings["ENABLE_SPIDER_START_NOTI"]:
+            slack_response = Notification.sendLineMsg(self.settings["SLACK_WEBHOOK_URL"], "Start PantipMarket spider.")
+            if slack_response.status_code != 200:
+                log.error("Cannot send notification slack when open spider")
+        if self.settings["ENABLE_LINE_NOTI"] and self.settings["ENABLE_SPIDER_START_NOTI"]:
+            line_response = Notification.sendLineMsg(self.settings["CHANEL_ACCESS_TOKEN"], self.settings["LINE_USER_ID_LIST"]
+                                                     , "Start PantipMarket spider.")
+            if line_response.status_code != 200:
+                log.error("Cannot send notification line when open spider")
         url = self.start_url.format(self.settings["MAIN_SEARCH_KEYWORD"])
         log.info("Send request for PantipMarket URL = {}".format(self.start_url))
         yield scrapy.Request(url=url, callback=self.parse)

@@ -104,21 +104,29 @@ FACEBOOK_PASS = ""
 FACEBOOK_SCROLL_PAUSE_TIME = 2
 
 # MONGODB CONNECTION
-MONGO_URI = "mongodb://localhost:27017"
+MONGO_URI = "mongodb://172.18.0.1:27017"
 MONGO_DATABASE = "ConcertScraper"
 
-# CHROME DRIVER PATH (if using selenium remote can let this field empty string)
-CHROME_DRIVER_PATH = "/var/lib/scrapyd/chromedriver"
+# CHROME DRIVER PATH (if using selenium remote can let this field empty)
+# CHROME_DRIVER_PATH = "/var/lib/scrapyd/chromedriver"
 
 # SELENIUM SETTING
 SELENIUM_USING_REMOTE = True
-SELENIUM_REMOTE_URL = "http://172.20.128.2:4444/wd/hub"
+SELENIUM_REMOTE_URL = "http://172.18.0.1:4444/wd/hub"
 
 # item pipeline for keep result in MongoDB (If disabled this it also disable SLACK Notification)
 ITEM_PIPELINES = {
     'ConcertScraper.pipelines.MongoDBPipeline': 300
 }
 
+# Ensure server is running
+ENABLE_SPIDER_START_NOTI = True
+
 # SLACK NOTIFICATION
-ENABLE_NOTI_SLACK = True
+ENABLE_NOTI_SLACK = False
 SLACK_WEBHOOK_URL = ""
+
+# LINE NOTIFICATION
+ENABLE_LINE_NOTI = False
+CHANEL_ACCESS_TOKEN = ""
+LINE_USER_ID_LIST = []
