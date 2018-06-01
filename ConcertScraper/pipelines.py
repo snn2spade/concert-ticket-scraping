@@ -42,8 +42,7 @@ class MongoDBPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        log.info("Process pipeline item")
-        log.info(item)
+        log.info("Process pipeline source = {} item = {}".format(item["source"], item["id"]))
         item_in_db = self.db[self.collection_name].find_one({"source": item["source"], "id": item["id"]})
         if item_in_db is None:
             # Send slack notification
