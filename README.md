@@ -45,7 +45,7 @@ Install scrapyd-client a client for Scrapyd which allows you to deploy your proj
 ```
 pip install scrapyd-client
 ```
-Change directory to project root folder (folder which contain settings.py
+Change directory to project root folder (folder which contain settings.py)
 
 ```
 scrapyd-deploy
