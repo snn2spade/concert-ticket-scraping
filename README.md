@@ -22,7 +22,7 @@ git clone https://github.com/snn2spade/concert-ticket-scraping.git
 
 ### Create Settings.py file
 
-Go to root folder and copy template-settings.py to settings.py
+Go to root folder and copy template-settings.py to settings.py 
 
 ### Setup Scrapyd and Selenium Server using Docker Composer
 
@@ -62,6 +62,30 @@ scrapy-client schedule kaidee -p ConcertScraper
 This will scraping ticket sold on Kaidee with specifc keyword 'Celine' (You can change it in settings.py)
 
 Now go to http://localhost:6800 and go to log section you will see job is running.
+
+## Schedule Async check on Ubuntu
+
+First, create bash script
+
+```
+#!/bin/bash
+PATH=/opt/someApp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+scrapyd-client schedule -p ConcertScraper kaidee
+scrapyd-client schedule -p ConcertScraper ticketdee
+scrapyd-client schedule -p ConcertScraper facebook
+```
+
+Next, edit crontab configuration
+
+```
+crontab -e
+``
+
+then add this line below
+
+```
+*/30 * * * * {path to script}
+```
 
 ## Future
 
