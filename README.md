@@ -6,6 +6,11 @@ Scraping all ticket information and seller contact which sold in secondary marke
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+## Note
+
+Since PantipMarket is block IP Address outside Thailand, So if you deploy server on foriegn country it won't work only
+PantipMarket.
+
 ### Prerequisites
 
 
