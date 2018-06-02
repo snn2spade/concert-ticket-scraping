@@ -87,6 +87,8 @@ then add this line below
 */30 * * * * {path to script}
 ```
 
+This will schedule every 30 miniute.
+
 ## Future
 
 In nearest future I wil update not only for Concert ticket but everything! in e-commerce platform
