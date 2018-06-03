@@ -88,6 +88,12 @@ scrapyd-client schedule -p ConcertScraper ticketdee
 scrapyd-client schedule -p ConcertScraper facebook
 ```
 
+Then enable to execute this file
+
+```
+chmod 777 {path-to-script}
+```
+
 Next, edit crontab configuration
 
 ```
