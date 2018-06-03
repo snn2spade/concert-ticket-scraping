@@ -16,6 +16,7 @@ PantipMarket.
 
 ```
 Python 3.0 or above
+Pip 2.0 or above
 Docker version 18.0 or above
 ```
 
@@ -25,16 +26,12 @@ Docker version 18.0 or above
 git clone https://github.com/snn2spade/concert-ticket-scraping.git
 ```
 
-### Create Settings.py file
-
-Go to root folder and copy template-settings.py to settings.py 
-
 ### Setup Scrapyd and Selenium Server using Docker Composer
 
 Change directory to folder which containa docker-composer.yml
 
 ```
-docker-composer up -d
+docker-compose up -d
 ```
 
 After that we must see both Scrapyd and Selenium Server is started on Docker container
@@ -43,12 +40,22 @@ After that we must see both Scrapyd and Selenium Server is started on Docker con
 docker ps
 ```
 
+### Create Settings.py file
+
+Go to root folder and copy template-settings.py to settings.py 
+
+```
+cp template-settings.py settings.py
+```
+
+
 ### Deploy Scrapy crawler
 
 Install scrapyd-client a client for Scrapyd which allows you to deploy your project to a Scrapyd server.
 
 ```
-pip install scrapyd-client
+pip install git+https://github.com/scrapy/scrapyd-client
+which scrapyd-client
 ```
 Change directory to project root folder (folder which contain settings.py)
 
@@ -77,6 +84,7 @@ First, create bash script
 PATH=/opt/someApp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 scrapyd-client schedule -p ConcertScraper kaidee
 scrapyd-client schedule -p ConcertScraper ticketdee
+#scrapyd-client schedule -p ConcertScraper pantipmarket
 scrapyd-client schedule -p ConcertScraper facebook
 ```
 
